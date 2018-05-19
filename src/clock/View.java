@@ -2,6 +2,8 @@ package clock;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observer;
 import java.util.Observable;
 
@@ -10,46 +12,50 @@ public class View implements Observer {
     ClockPanel panel;
     
     public View(Model model) {
+
+        // main window
         JFrame frame = new JFrame();
+
         panel = new ClockPanel(model);
         //frame.setContentPane(panel);
         frame.setTitle("Java Clock");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Start of border layout code
-        
-        // I've just put a single button in each of the border positions:
-        // PAGE_START (i.e. top), PAGE_END (bottom), LINE_START (left) and
-        // LINE_END (right). You can omit any of these, or replace the button
-        // with something else like a label or a menu bar. Or maybe you can
-        // figure out how to pack more than one thing into one of those
-        // positions. This is the very simplest border layout possible, just
-        // to help you get started.
-        
+
         Container pane = frame.getContentPane();
         
-        JButton button = new JButton("Button 1 (PAGE_START)");
+        JButton button = new JButton("Current Time");
         pane.add(button, BorderLayout.PAGE_START);
          
-        panel.setPreferredSize(new Dimension(200, 300));
+        panel.setPreferredSize(new Dimension(300, 200));
         pane.add(panel, BorderLayout.CENTER);
          
-        button = new JButton("Button 3 (LINE_START)");
+        button = new JButton("View Alarms");
         pane.add(button, BorderLayout.LINE_START);
          
-        button = new JButton("Alarm 1 (PAGE_END)");
+        button = new JButton("Next Alarm");
         pane.add(button, BorderLayout.PAGE_END);
-        button = new JButton("Alarm 2 (PAGE_END)");
-        pane.add(button, BorderLayout.PAGE_END);
-         
-        button = new JButton("5 (LINE_END)");
-        pane.add(button, BorderLayout.LINE_END);
+
+        JButton btn_add = new JButton("Add Alarm");
+        pane.add(btn_add, BorderLayout.LINE_END);
         
         // End of borderlayout code
+
+
+        // event listener for adding a new alarm
+        btn_add.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                AddAlarm newAlarm = new AddAlarm();
+            }
+        });
         
         frame.pack();
         frame.setVisible(true);
     }
+
     
     public void update(Observable o, Object arg) {
         panel.repaint();
