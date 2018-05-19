@@ -31,13 +31,15 @@ public class View implements Observer {
         JButton button = new JButton("Button 1 (PAGE_START)");
         pane.add(button, BorderLayout.PAGE_START);
          
-        panel.setPreferredSize(new Dimension(200, 200));
+        panel.setPreferredSize(new Dimension(200, 300));
         pane.add(panel, BorderLayout.CENTER);
          
         button = new JButton("Button 3 (LINE_START)");
         pane.add(button, BorderLayout.LINE_START);
          
-        button = new JButton("Long-Named Button 4 (PAGE_END)");
+        button = new JButton("Alarm 1 (PAGE_END)");
+        pane.add(button, BorderLayout.PAGE_END);
+        button = new JButton("Alarm 2 (PAGE_END)");
         pane.add(button, BorderLayout.PAGE_END);
          
         button = new JButton("5 (LINE_END)");
