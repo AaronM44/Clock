@@ -63,6 +63,14 @@ public class View implements Observer {
             }
         });
 
+        // event listener for when window is opened for the first time
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent we) {
+                LoadAlarms loadAlarms = new LoadAlarms();
+            }
+        });
+
         // event listener for when user attempts to close application
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
