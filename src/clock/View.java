@@ -31,8 +31,8 @@ public class View implements Observer {
         panel.setPreferredSize(new Dimension(300, 200));
         pane.add(panel, BorderLayout.CENTER);
          
-        button = new JButton("View Alarms");
-        pane.add(button, BorderLayout.LINE_START);
+        JButton btn_view = new JButton("View Alarms");
+        pane.add(btn_view, BorderLayout.LINE_START);
          
         button = new JButton("Next Alarm");
         pane.add(button, BorderLayout.PAGE_END);
@@ -49,6 +49,15 @@ public class View implements Observer {
             public void actionPerformed(ActionEvent actionEvent) {
 
                 AddAlarm newAlarm = new AddAlarm();
+            }
+        });
+
+        // event listener for viewing alarms set
+        btn_view.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                ViewAlarm viewAlarms = new ViewAlarm();
             }
         });
         

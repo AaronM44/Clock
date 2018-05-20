@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a096439e-6958-4227-b1b4-06509384adea" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/clock/AddAlarm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/clock/ViewAlarm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/View.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/clock/View.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/clock/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clock/View.java" afterDir="false" />
@@ -49,8 +49,8 @@
       <file leaf-file-name="View.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/clock/View.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="45" column="48" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
+            <state relative-caret-position="257">
+              <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -58,11 +58,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddAlarm.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AddAlarm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/clock/AddAlarm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="79" column="15" selection-start-line="79" selection-start-column="15" selection-end-line="79" selection-end-column="15" />
+            <state relative-caret-position="180">
+              <caret line="77" column="20" selection-end-line="85" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewAlarm.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/clock/ViewAlarm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="226">
+              <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -100,8 +112,9 @@
         <option value="$PROJECT_DIR$/src/priorityqueue/PriorityItem.java" />
         <option value="$PROJECT_DIR$/src/priorityqueue/QueueOverflowException.java" />
         <option value="$PROJECT_DIR$/src/priorityqueue/QueueUnderflowException.java" />
-        <option value="$PROJECT_DIR$/src/clock/View.java" />
         <option value="$PROJECT_DIR$/src/clock/AddAlarm.java" />
+        <option value="$PROJECT_DIR$/src/clock/View.java" />
+        <option value="$PROJECT_DIR$/src/clock/ViewAlarm.java" />
       </list>
     </option>
   </component>
@@ -344,20 +357,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/clock/View.java">
+    <entry file="file://$PROJECT_DIR$/src/clock/AddAlarm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="45" column="48" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
+        <state relative-caret-position="180">
+          <caret line="77" column="20" selection-end-line="85" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/clock/AddAlarm.java">
+    <entry file="file://$PROJECT_DIR$/src/clock/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="79" column="15" selection-start-line="79" selection-start-column="15" selection-end-line="79" selection-end-column="15" />
+        <state relative-caret-position="257">
+          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clock/ViewAlarm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
