@@ -48,12 +48,12 @@ class AddAlarmActionListener implements ActionListener {
         // create new Alarm object
         Alarm alarm = new Alarm((Date) view.date_spinner.getValue());
 
-        long x = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmm").format(view.date_spinner.getValue()));
+        long datetime = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmm").format(view.date_spinner.getValue()));
 
         // add alarm to the queue
         try {
 
-            view.model.alarms.add(alarm, x);
+            view.model.alarms.add(alarm, datetime);
         }
         catch (QueueOverflowException error) {
 
@@ -69,6 +69,42 @@ class AddAlarmActionListener implements ActionListener {
 //        catch (QueueUnderflowException error) {
 //
 //        }
+    }
+}
+
+// handle the events for the View Alarms window
+class ViewAlarmActionListener implements ActionListener {
+
+    ViewAlarm view;
+    Alarm alarm;
+
+    public ViewAlarmActionListener(ViewAlarm view, Alarm alarm) {
+
+        this.view = view;
+        this.alarm = alarm;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        EditAlarm editAlarm = new EditAlarm(view.model, alarm);
+    }
+}
+
+// handle the events for the Edit Alarm window
+class EditAlarmActionListener implements ActionListener {
+
+    EditAlarm view;
+
+    public EditAlarmActionListener(EditAlarm view) {
+
+        this.view = view;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+
     }
 }
 

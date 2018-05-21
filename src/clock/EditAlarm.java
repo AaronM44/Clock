@@ -1,14 +1,30 @@
 package clock;
 
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Observer;
+import javax.swing.*;
 
-public class EditAlarm extends JFrame{
+public class EditAlarm  extends JFrame{
 
-    public EditAlarm() {
+    Model model;
+    Alarm alarm;
 
-        setTitle("Edit alarm");
-        setSize(500, 400);
+    SpinnerDateModel date_model = new SpinnerDateModel();
+    JSpinner date_spinner = new JSpinner(date_model);
+
+    JLabel lbl_set = new JLabel("Set Alarm");
+    JButton btn_save = new JButton("Save");
+    JButton btn_delete = new JButton("Delete");
+
+    public EditAlarm(Model model, Alarm alarm) {
+
+        this.model = model;
+        this.alarm = alarm;
+
+        setTitle("Add new alarm");
+        setSize(500, 300);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -16,74 +32,27 @@ public class EditAlarm extends JFrame{
         pane.setLayout(null);
 
         // first row
-        JLabel lbl_day = new JLabel("Day");
-        lbl_day.setFont(new Font("Serif", Font.BOLD, 24));
-        lbl_day.setBounds(20, 20, 100, 50);
-        pane.add(lbl_day);
-
-        JLabel lbl_month = new JLabel("Month");
-        lbl_month.setFont(new Font("Serif", Font.BOLD, 24));
-        lbl_month.setBounds(150, 20, 100, 50);
-        pane.add(lbl_month);
-
-        JLabel lbl_year = new JLabel("Year");
-        lbl_year.setFont(new Font("Serif", Font.BOLD, 24));
-        lbl_year.setBounds(280, 20, 100, 50);
-        pane.add(lbl_year);
+        lbl_set.setFont(new Font("Serif", Font.BOLD, 24));
+        lbl_set.setBounds(125, 20, 250, 50);
+        pane.add(lbl_set);
 
         // second row
-        JTextField txt_day = new JTextField();
-        txt_day.setFont(new Font("Serif", Font.BOLD, 24));
-        txt_day.setBounds(20, 70, 100, 50);
-        pane.add(txt_day);
-
-        JTextField txt_month = new JTextField();
-        txt_month.setFont(new Font("Serif", Font.BOLD, 24));
-        txt_month.setBounds(150, 70, 100, 50);
-        pane.add(txt_month);
-
-        JTextField txt_year = new JTextField();
-        txt_year.setFont(new Font("Serif", Font.BOLD, 24));
-        txt_year.setBounds(280, 70, 100, 50);
-        pane.add(txt_year);
-
-        // third row
-        JLabel lbl_hours = new JLabel("Hour");
-        lbl_hours.setFont(new Font("Serif", Font.BOLD, 24));
-        lbl_hours.setBounds(20, 120, 100, 50);
-        pane.add(lbl_hours);
-
-        JLabel lbl_minutes = new JLabel("Minutes");
-        lbl_minutes.setFont(new Font("Serif", Font.BOLD, 24));
-        lbl_minutes.setBounds(150, 120, 100, 50);
-        pane.add(lbl_minutes);
-
-        // fourth row
-        JTextField txt_hours = new JTextField();
-        txt_hours.setFont(new Font("Serif", Font.BOLD, 24));
-        txt_hours.setBounds(20, 170, 100, 50);
-        pane.add(txt_hours);
-
-        JTextField txt_minutes = new JTextField();
-        txt_minutes.setFont(new Font("Serif", Font.BOLD, 24));
-        txt_minutes.setBounds(150, 170, 100, 50);
-        pane.add(txt_minutes);
-
-        // fifth row - filler
-        JLabel lbl_blank = new JLabel("");
-        lbl_blank.setBounds(20, 220, 100, 50);
-        pane.add(lbl_blank);
+        date_spinner.setFont(new Font("Serif", Font.BOLD, 24));
+        date_spinner.setBounds(125, 70, 250, 50);
+        pane.add(date_spinner);
 
         // sixth row
-        JButton btn_save = new JButton("Save");
         btn_save.setFont(new Font("Serif", Font.BOLD, 24));
-        btn_save.setBounds(20, 270, 100, 50);
+        btn_save.setBounds(125, 130, 100, 50);
         pane.add(btn_save);
 
-        JButton btn_delete = new JButton("Delete");
         btn_delete.setFont(new Font("Serif", Font.BOLD, 24));
-        btn_delete.setBounds(150, 270, 100, 50);
+        btn_delete.setBounds(125, 240, 100, 50);
         pane.add(btn_delete);
+
+        // listeners
+        btn_save.addActionListener( new EditAlarmActionListener(this));
+        btn_delete.addActionListener( new EditAlarmActionListener(this));
 
     }
 }

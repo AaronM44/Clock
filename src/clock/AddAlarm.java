@@ -47,8 +47,4 @@ public class AddAlarm  extends JFrame{
         btn_add.addActionListener( new AddAlarmActionListener(this));
 
     }
-
-
-
-
 }
