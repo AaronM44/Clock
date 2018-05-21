@@ -8,9 +8,9 @@ package priorityqueue;
 public class PriorityItem<T> {
 
     private final T item;
-    private final int priority;
+    private final long priority;
 
-    public PriorityItem(T item, int priority) {
+    public PriorityItem(T item, long priority) {
         this.item = item;
         this.priority = priority;
     }
@@ -19,7 +19,7 @@ public class PriorityItem<T> {
         return item;
     }
 
-    public int getPriority() {
+    public long getPriority() {
         return priority;
     }
 

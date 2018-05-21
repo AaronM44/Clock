@@ -48,23 +48,27 @@ class AddAlarmActionListener implements ActionListener {
         // create new Alarm object
         Alarm alarm = new Alarm((Date) view.date_spinner.getValue());
 
+        long x = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmm").format(view.date_spinner.getValue()));
+
         // add alarm to the queue
         try {
 
-            view.model.alarms.add(alarm, 1);
+            view.model.alarms.add(alarm, x);
         }
         catch (QueueOverflowException error) {
 
         }
 
+        JOptionPane.showMessageDialog(view, view.model.alarms.toString());
+
         // show alarm
-        try {
-            JOptionPane.showMessageDialog(view, view.model.alarms.head().getIcal_alarm());
-
-        }
-        catch (QueueUnderflowException error) {
-
-        }
+//        try {
+//            JOptionPane.showMessageDialog(view, view.model.alarms.toString());
+//
+//        }
+//        catch (QueueUnderflowException error) {
+//
+//        }
     }
 }
 
