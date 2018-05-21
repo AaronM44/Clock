@@ -1,35 +1,30 @@
 package clock;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Alarm {
 
-    private String alarm;
+    private String ical_alarm;
+    private Date raw_alarm;
 
-    private int year;
-    private int month;
-    private int day;
-    private int hours;
-    private int minutes;
-    private int seconds;
+    public Alarm(Date alarm) {
 
-    public Alarm(int yyyy, int mm, int dd, int hh, int MM, int ss) {
+        this.raw_alarm = alarm;
 
-        year = yyyy;
-        month = mm;
-        day = dd;
-        hours = hh;
-        minutes = MM;
-        seconds = ss;
-
-        alarm = convertToAlarm(year, month, day, hours, minutes, seconds);
+        ical_alarm = convertToAlarm(raw_alarm);
     }
 
-    public String convertToAlarm (int yyyy, int mm, int dd, int hh, int MM, int ss) {
+    public String convertToAlarm (Date alarm) {
 
-        String alarmString = String.valueOf(yyyy) + String.valueOf(mm) + String.valueOf(dd)
-                + "T" + String.valueOf(hh) + String.valueOf(MM) + String.valueOf(ss) + "Z";
+        String alarmString = String.valueOf(new SimpleDateFormat("yyyyMMdd").format(raw_alarm)) + "T" +
+                String.valueOf(new SimpleDateFormat("HHmmss").format(raw_alarm)) + "Z";
+
 
         return alarmString;
     }
 
-    public String getAlarm(){ return alarm; };
+    public String getIcal_alarm(){ return ical_alarm; }
+
+    public Date getRawAlarm(){ return raw_alarm; }
 }
