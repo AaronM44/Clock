@@ -2,7 +2,9 @@ package clock;
 
 import priorityqueue.QueueOverflowException;
 import priorityqueue.QueueUnderflowException;
+import priorityqueue.SortedArrayPriorityQueue;
 
+import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -78,6 +80,11 @@ class ViewAlarmActionListener implements ActionListener {
     ViewAlarm view;
     Alarm alarm;
 
+    public ViewAlarmActionListener(ViewAlarm view) {
+
+        this.view = view;
+    }
+
     public ViewAlarmActionListener(ViewAlarm view, Alarm alarm) {
 
         this.view = view;
@@ -88,6 +95,56 @@ class ViewAlarmActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         EditAlarm editAlarm = new EditAlarm(view.model, alarm);
+    }
+}
+
+class ViewAlarmWindowAdaptor extends WindowAdapter {
+
+    ViewAlarm view;
+
+    public ViewAlarmWindowAdaptor(ViewAlarm view) {
+
+        this.view = view;
+    }
+
+    @Override
+    public void windowActivated(WindowEvent we) {
+
+        // create a copy of the alarm queue
+        SortedArrayPriorityQueue<Alarm> copyAlarms = view.model.alarms;
+
+        // get number of alarms in the queue
+        int numAlarms = copyAlarms.count();
+
+        int baseHeight = 20;
+
+        // loop through all alarms creating a button and listener for them all
+        // can't access priority queue items specifically so instead we create a copy
+        // access the head then pop it, access the next one and so on...
+        // loads the buttons really slow, not sure, probably just a really bad way of doing things
+        for (int i = 0; i < numAlarms; i++) {
+
+            try {
+                JButton button = new JButton(String.valueOf(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(copyAlarms.head().getRawAlarm())));
+                button.setFont(new Font("Serif", Font.BOLD, 24));
+                button.setBounds(20, baseHeight + 50, 250, 50);
+                view.pane.add(button);
+
+                button.addActionListener(new ViewAlarmActionListener(view, copyAlarms.head()));
+            }
+            catch (QueueUnderflowException e) {
+
+            }
+
+            try {
+                copyAlarms.remove();
+            }
+            catch (QueueUnderflowException e) {
+
+            }
+
+            baseHeight += 50;
+        }
     }
 }
 

@@ -59,7 +59,7 @@ public class View implements Observer {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
-                ViewAlarm viewAlarms = new ViewAlarm();
+                ViewAlarm viewAlarms = new ViewAlarm(model);
             }
         });
 

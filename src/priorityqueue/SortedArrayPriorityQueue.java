@@ -102,4 +102,6 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         result = result + "]";
         return result;
     }
+
+    public int count() { return tailIndex + 1 ; }
 }

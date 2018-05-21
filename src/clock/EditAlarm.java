@@ -14,7 +14,7 @@ public class EditAlarm  extends JFrame{
     SpinnerDateModel date_model = new SpinnerDateModel();
     JSpinner date_spinner = new JSpinner(date_model);
 
-    JLabel lbl_set = new JLabel("Set Alarm");
+    JLabel lbl_set = new JLabel("Edit Alarm");
     JButton btn_save = new JButton("Save");
     JButton btn_delete = new JButton("Delete");
 
@@ -23,7 +23,7 @@ public class EditAlarm  extends JFrame{
         this.model = model;
         this.alarm = alarm;
 
-        setTitle("Add new alarm");
+        setTitle("Edit alarm");
         setSize(500, 300);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -47,7 +47,7 @@ public class EditAlarm  extends JFrame{
         pane.add(btn_save);
 
         btn_delete.setFont(new Font("Serif", Font.BOLD, 24));
-        btn_delete.setBounds(125, 240, 100, 50);
+        btn_delete.setBounds(235, 130, 100, 50);
         pane.add(btn_delete);
 
         // listeners
