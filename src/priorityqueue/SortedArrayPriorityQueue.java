@@ -1,5 +1,9 @@
 package priorityqueue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+
 /**
  * Implementation of the PriorityQueue ADT using a sorted array for storage.
  *
@@ -104,4 +108,30 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
     }
 
     public int count() { return tailIndex + 1 ; }
+
+    public ArrayList<Object> returnArrayList() {
+
+        ArrayList<Object> arrayList = new ArrayList<>(Arrays.asList(storage));
+
+        return arrayList;
+    }
+
+    // search for an item in the queue
+    public Object search(T item) {
+
+        ArrayList<Object> arrayList = new ArrayList<>(Arrays.asList(storage));
+        Object returnValue = null;
+
+        for (Object object : arrayList) {
+
+            System.out.println(object);
+
+            if (object == item) {
+
+                returnValue = object;
+            }
+        }
+
+        return returnValue;
+    }
 }

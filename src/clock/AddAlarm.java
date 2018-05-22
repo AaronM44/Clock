@@ -46,7 +46,9 @@ public class AddAlarm  extends JFrame{
         pane.add(btn_add);
 
         // add listener for the Add button
-        btn_add.addActionListener( new AddAlarmActionListener(this));
+        btn_add.addActionListener(new AddAlarmActionListener(this, model));
+
+        this.addWindowListener(new AddAlarmWindowAdapter(this, model));
 
     }
 }

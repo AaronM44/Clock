@@ -52,6 +52,10 @@ public class EditAlarm  extends JFrame{
         btn_delete.setBounds(235, 130, 100, 50);
         pane.add(btn_delete);
 
+        // set action commands
+        btn_save.setActionCommand("SAVE");
+        btn_delete.setActionCommand("DELETE");
+
         // button listeners
         btn_save.addActionListener( new EditAlarmActionListener(this));
         btn_delete.addActionListener( new EditAlarmActionListener(this));

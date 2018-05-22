@@ -15,11 +15,10 @@ public class Model extends Observable {
     
     int oldSecond = 0;
 
-    SortedArrayPriorityQueue<Alarm> alarms;
+    SortedArrayPriorityQueue<Alarm> alarms = new SortedArrayPriorityQueue<>(5);
     
     public Model() {
 
-        alarms = new SortedArrayPriorityQueue<>(5);
         update();
     }
     

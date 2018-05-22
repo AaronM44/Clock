@@ -1,5 +1,6 @@
 package clock;
 
+import priorityqueue.PriorityItem;
 import priorityqueue.QueueOverflowException;
 import priorityqueue.QueueUnderflowException;
 import priorityqueue.SortedArrayPriorityQueue;
@@ -7,6 +8,7 @@ import priorityqueue.SortedArrayPriorityQueue;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
@@ -35,14 +37,73 @@ public class Controller {
     }
 }
 
-// handle the events for the Add Alarm window
+// ****** VIEW LISTENERS
+class ViewActionListener implements ActionListener {
+
+    View view;
+    Model model;
+
+    public ViewActionListener(View view, Model model) {
+
+        this.view = view;
+        this.model = model;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+
+        if (actionEvent.getActionCommand() == "ADD") {
+
+            AddAlarm addAlarm = new AddAlarm(model);
+        }
+        else if (actionEvent.getActionCommand() == "VIEW") {
+
+            ViewAlarm viewAlarm = new ViewAlarm(model);
+        }
+    }
+}
+
+class ViewWindowAdapter extends WindowAdapter {
+
+    View view;
+    Model model;
+
+    public ViewWindowAdapter(View view, Model model) {
+
+        this.view = view;
+        this.model = model;
+    }
+
+    @Override
+    public void windowActivated(WindowEvent windowEvent) {
+
+        System.out.println("View model: " + model.toString());
+        System.out.println("View alarms: " + model.alarms.toString());
+    }
+
+    @Override
+    public void windowOpened(WindowEvent windowEvent) {
+
+        LoadAlarms loadAlarms = new LoadAlarms();
+    }
+
+    @Override
+    public void windowClosing(WindowEvent windowEvent) {
+
+        SaveAlarms saveAlarms = new SaveAlarms();
+    }
+}
+
+// ****** ADD ALARM LISTENERS
 class AddAlarmActionListener implements ActionListener {
 
     AddAlarm view;
+    Model model;
 
-    public AddAlarmActionListener(AddAlarm view) {
+    public AddAlarmActionListener(AddAlarm view, Model model) {
 
         this.view = view;
+        this.model = model;
     }
 
     @Override
@@ -56,26 +117,38 @@ class AddAlarmActionListener implements ActionListener {
         // add alarm to the queue
         try {
 
-            view.model.alarms.add(alarm, datetime);
+            model.alarms.add(alarm, datetime);
         }
         catch (QueueOverflowException error) {
 
         }
 
-        JOptionPane.showMessageDialog(view, view.model.alarms.toString());
+        JOptionPane.showMessageDialog(view, "Alarm saved");
 
-        // show alarm
-//        try {
-//            JOptionPane.showMessageDialog(view, view.model.alarms.toString());
-//
-//        }
-//        catch (QueueUnderflowException error) {
-//
-//        }
     }
 }
 
-// handle the events for the View Alarms window
+// window listener for Add Alarm window
+class AddAlarmWindowAdapter extends WindowAdapter {
+
+    AddAlarm view;
+    Model model;
+
+    public AddAlarmWindowAdapter(AddAlarm view, Model model) {
+
+        this.view = view;
+        this.model = model;
+    }
+
+    @Override
+    public void windowActivated(WindowEvent we) {
+
+        System.out.println("Add Alarm model: " + model.toString());
+        System.out.println("Add Alarm alarms: " + model.alarms.toString());
+    }
+}
+
+// ****** VIEW ALARMS LISTENERS
 class ViewAlarmActionListener implements ActionListener {
 
     ViewAlarm view;
@@ -99,6 +172,7 @@ class ViewAlarmActionListener implements ActionListener {
     }
 }
 
+// window listener events
 class ViewAlarmWindowAdapter extends WindowAdapter {
 
     ViewAlarm view;
@@ -111,38 +185,29 @@ class ViewAlarmWindowAdapter extends WindowAdapter {
     @Override
     public void windowActivated(WindowEvent we) {
 
-        // create a copy of the alarm queue
-        SortedArrayPriorityQueue<Alarm> copyAlarms = view.model.alarms;
+        // error checking
+        System.out.println("View Alarm model: " + view.model.toString());
+        System.out.println("View Alarm alarms: " + view.model.alarms.toString());
+
+        ArrayList<Object> copyAlarms = view.model.alarms.returnArrayList();
 
         // get number of alarms in the queue
-        int numAlarms = copyAlarms.count();
+        int numAlarms = view.model.alarms.count();
 
         int baseHeight = 20;
 
-        // loop through all alarms creating a button and listener for them all
-        // can't access priority queue items specifically so instead we create a copy
-        // access the head then pop it, access the next one and so on...
-        // loads the buttons really slow, not sure, probably just a really bad way of doing things
+        // create a button for each alarm in the queue
+        // buttons are slow to load, no idea why, guessing there's a better way to do this somehow
         for (int i = 0; i < numAlarms; i++) {
 
-            try {
-                JButton button = new JButton(String.valueOf(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(copyAlarms.head().getRawAlarm())));
-                button.setFont(new Font("Serif", Font.BOLD, 24));
-                button.setBounds(20, baseHeight + 50, 250, 50);
-                view.pane.add(button);
+            PriorityItem<Alarm> alarm = (PriorityItem<Alarm>) copyAlarms.get(i);
 
-                button.addActionListener(new ViewAlarmActionListener(view, copyAlarms.head()));
-            }
-            catch (QueueUnderflowException e) {
+            JButton button = new JButton(String.valueOf(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(alarm.getItem().getRawAlarm())));
+            button.setFont(new Font("Serif", Font.BOLD, 24));
+            button.setBounds(20, baseHeight + 50, 250, 50);
+            view.pane.add(button);
 
-            }
-
-            try {
-                copyAlarms.remove();
-            }
-            catch (QueueUnderflowException e) {
-
-            }
+            button.addActionListener(new ViewAlarmActionListener(view, alarm.getItem()));
 
             baseHeight += 50;
         }
@@ -162,7 +227,12 @@ class EditAlarmActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (e.getActionCommand() == "SAVE") {
 
+            System.out.println(String.valueOf(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(view.alarm.getRawAlarm())));
+            System.out.println(String.valueOf(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(view.date_spinner.getValue())));
+
+        }
     }
 }
 
@@ -180,6 +250,9 @@ class EditAlarmWindowAdapter extends WindowAdapter {
 
     @Override
     public void windowOpened(WindowEvent we) {
+
+        System.out.println("Edit Alarm model: " + view.model.toString());
+        System.out.println("Edit Alarm alarms: " + view.model.alarms.toString());
 
         view.date_spinner.setValue(alarm.getRawAlarm());
 

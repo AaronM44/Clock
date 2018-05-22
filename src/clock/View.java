@@ -9,23 +9,24 @@ import java.awt.event.WindowEvent;
 import java.util.Observer;
 import java.util.Observable;
 
-public class View implements Observer {
+public class View extends JFrame implements Observer{
     
     ClockPanel panel;
+
+    //JFrame frame = new JFrame();
     
     public View(Model model) {
 
         // main window
-        JFrame frame = new JFrame();
-
         panel = new ClockPanel(model);
+
         //frame.setContentPane(panel);
-        frame.setTitle("Java Clock");
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setTitle("Java Clock");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Start of border layout code
 
-        Container pane = frame.getContentPane();
+        Container pane = getContentPane();
         
         JButton button = new JButton("Current Time");
         pane.add(button, BorderLayout.PAGE_START);
@@ -41,48 +42,23 @@ public class View implements Observer {
 
         JButton btn_add = new JButton("Add Alarm");
         pane.add(btn_add, BorderLayout.LINE_END);
+
+        btn_add.setActionCommand("ADD");
+        btn_view.setActionCommand("VIEW");
         
         // End of borderlayout code
 
+        // listeners
+        btn_add.addActionListener(new ViewActionListener(this, model));
+        btn_view.addActionListener(new ViewActionListener(this, model));
 
-        // event listener for adding a new alarm
-        btn_add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+        addWindowListener(new ViewWindowAdapter(this, model));
 
-                AddAlarm newAlarm = new AddAlarm(model);
-            }
-        });
-
-        // event listener for viewing alarms set
-        btn_view.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
-                ViewAlarm viewAlarms = new ViewAlarm(model);
-            }
-        });
-
-        // event listener for when window is opened for the first time
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowOpened(WindowEvent we) {
-                LoadAlarms loadAlarms = new LoadAlarms();
-            }
-        });
-
-        // event listener for when user attempts to close application
-        frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                SaveAlarms saveAlarms = new SaveAlarms();
-            }
-        });
-        
-        frame.pack();
-        frame.setVisible(true);
+        pack();
+        setVisible(true);
     }
 
-    
+
     public void update(Observable o, Object arg) {
         panel.repaint();
     }

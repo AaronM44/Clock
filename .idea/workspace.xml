@@ -9,13 +9,22 @@
       <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/clock/Controller.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/EditAlarm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/clock/EditAlarm.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/EditAlarmActionListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/clock/EditAlarmActionListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/ViewAlarm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/clock/ViewAlarm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/EditAlarmWindowAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/clock/EditAlarmWindowAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/clock/Model.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/View$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/View$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/View$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/View$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/View.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/clock/View.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/ViewAlarmActionListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/clock/ViewAlarmActionListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/ViewAlarmWindowAdaptor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Clock/clock/ViewAlarmWindowAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/clock/ViewAlarmWindowAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Clock/priorityqueue/SortedArrayPriorityQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Clock/priorityqueue/SortedArrayPriorityQueue.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/clock/AddAlarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clock/AddAlarm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/clock/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clock/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/clock/EditAlarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clock/EditAlarm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/clock/ViewAlarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clock/ViewAlarm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/clock/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clock/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/clock/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clock/View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/priorityqueue/SortedArrayPriorityQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/priorityqueue/SortedArrayPriorityQueue.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,8 +38,20 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/clock/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="183" column="72" selection-start-line="183" selection-start-column="72" selection-end-line="183" selection-end-column="72" />
+            <state relative-caret-position="296">
+              <caret line="235" column="5" selection-start-line="235" selection-start-column="5" selection-end-line="235" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/clock/Model.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="259">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -41,8 +62,8 @@
       <file leaf-file-name="EditAlarm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/clock/EditAlarm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="90" />
+            <state relative-caret-position="152">
+              <caret line="56" column="43" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,8 +74,8 @@
       <file leaf-file-name="AddAlarm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/clock/AddAlarm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="605">
-              <caret line="37" column="90" selection-start-line="37" selection-start-column="90" selection-end-line="37" selection-end-column="90" />
+            <state relative-caret-position="25">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,23 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewAlarm.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/clock/ViewAlarm.java">
+      <file leaf-file-name="SortedArrayPriorityQueue.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/priorityqueue/SortedArrayPriorityQueue.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="35" column="20" lean-forward="true" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Alarm.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/clock/Alarm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="19" column="29" lean-forward="true" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="95" />
+            <state relative-caret-position="28">
+              <caret line="107" column="5" lean-forward="true" selection-start-line="107" selection-start-column="5" selection-end-line="107" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -106,15 +115,15 @@
         <option value="$PROJECT_DIR$/src/clock/SaveAlarms.java" />
         <option value="$PROJECT_DIR$/src/clock/LoadAlarms.java" />
         <option value="$PROJECT_DIR$/src/clock/Alert.java" />
-        <option value="$PROJECT_DIR$/src/clock/Model.java" />
         <option value="$PROJECT_DIR$/src/clock/Alarm.java" />
         <option value="$PROJECT_DIR$/src/priorityqueue/PriorityItem.java" />
         <option value="$PROJECT_DIR$/src/priorityqueue/PriorityQueue.java" />
-        <option value="$PROJECT_DIR$/src/clock/View.java" />
-        <option value="$PROJECT_DIR$/src/priorityqueue/SortedArrayPriorityQueue.java" />
         <option value="$PROJECT_DIR$/src/clock/ViewAlarm.java" />
         <option value="$PROJECT_DIR$/src/clock/EditAlarm.java" />
+        <option value="$PROJECT_DIR$/src/clock/View.java" />
+        <option value="$PROJECT_DIR$/src/clock/Model.java" />
         <option value="$PROJECT_DIR$/src/clock/AddAlarm.java" />
+        <option value="$PROJECT_DIR$/src/priorityqueue/SortedArrayPriorityQueue.java" />
         <option value="$PROJECT_DIR$/src/clock/Controller.java" />
       </list>
     </option>
@@ -297,14 +306,14 @@
       <window_info anchor="bottom" id="Terminal" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24980484" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24980484" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" />
       <window_info anchor="right" id="Theme Preview" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39862543" />
+      <window_info anchor="bottom" auto_hide="true" id="Debug" order="3" weight="0.39862543" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -345,7 +354,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="14" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -369,95 +378,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/clock/ClockPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="84" column="50" lean-forward="true" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/clock/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="25" column="26" lean-forward="true" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/clock/SaveAlarms.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/priorityqueue/PriorityQueue.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/priorityqueue/SortedArrayPriorityQueue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="105" column="45" selection-start-line="105" selection-start-column="45" selection-end-line="105" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/priorityqueue/PriorityItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/clock/ViewAlarm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="35" column="20" lean-forward="true" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/clock/EditAlarm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="90" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/clock/AddAlarm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="37" column="90" selection-start-line="37" selection-start-column="90" selection-end-line="37" selection-end-column="90" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/clock/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="647">
-          <caret line="58" column="21" lean-forward="true" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/clock/Clock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -471,10 +395,98 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/clock/SaveAlarms.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clock/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clock/ClockPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1360">
+          <caret line="84" column="50" lean-forward="true" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clock/Clock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clock/EditAlarm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="56" column="43" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clock/AddAlarm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clock/ViewAlarm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/priorityqueue/PriorityItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clock/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/priorityqueue/SortedArrayPriorityQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="107" column="5" lean-forward="true" selection-start-line="107" selection-start-column="5" selection-end-line="107" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/clock/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="183" column="72" selection-start-line="183" selection-start-column="72" selection-end-line="183" selection-end-column="72" />
+        <state relative-caret-position="296">
+          <caret line="235" column="5" selection-start-line="235" selection-start-column="5" selection-end-line="235" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
