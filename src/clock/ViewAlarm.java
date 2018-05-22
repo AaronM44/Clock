@@ -43,6 +43,6 @@ public class ViewAlarm  extends JFrame{
         pane.add(lbl_date);
 
         // window listener
-        this.addWindowListener(new ViewAlarmWindowAdaptor(this));
+        this.addWindowListener(new ViewAlarmWindowAdapter(this));
     }
 }

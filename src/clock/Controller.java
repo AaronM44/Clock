@@ -7,6 +7,7 @@ import priorityqueue.SortedArrayPriorityQueue;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
 
@@ -98,11 +99,11 @@ class ViewAlarmActionListener implements ActionListener {
     }
 }
 
-class ViewAlarmWindowAdaptor extends WindowAdapter {
+class ViewAlarmWindowAdapter extends WindowAdapter {
 
     ViewAlarm view;
 
-    public ViewAlarmWindowAdaptor(ViewAlarm view) {
+    public ViewAlarmWindowAdapter(ViewAlarm view) {
 
         this.view = view;
     }
@@ -163,5 +164,26 @@ class EditAlarmActionListener implements ActionListener {
 
 
     }
+}
+
+// edit alarm window adapter
+class EditAlarmWindowAdapter extends WindowAdapter {
+
+    EditAlarm view;
+    Alarm alarm;
+
+    public EditAlarmWindowAdapter(EditAlarm view, Alarm alarm) {
+
+        this.view = view;
+        this.alarm = alarm;
+    }
+
+    @Override
+    public void windowOpened(WindowEvent we) {
+
+        view.date_spinner.setValue(alarm.getRawAlarm());
+
+    }
+
 }
 
