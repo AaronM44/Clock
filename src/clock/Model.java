@@ -17,7 +17,6 @@ public class Model extends Observable {
     int oldSecond = 0;
 
     SortedArrayPriorityQueue<Alarm> alarms = new SortedArrayPriorityQueue<>(5);
-    //SortedLinkedListPriorityQueue<Alarm> alarms = new SortedLinkedListPriorityQueue<>();
 
     public Model() {
 

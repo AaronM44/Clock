@@ -74,8 +74,20 @@ class ViewWindowAdapter extends WindowAdapter {
     @Override
     public void windowActivated(WindowEvent windowEvent) {
 
+        Timer t = new Timer(3000, updateCurrentTime);
+        t.start();
+
+        // error reporting
         System.out.println("View model: " + model.toString());
         System.out.println("View alarms: " + model.alarms.toString());
+
+        // update next alarm
+        try {
+            view.btn_next.setText(String.valueOf(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(model.alarms.head().getRawAlarm())));
+        }
+        catch (QueueUnderflowException e) {
+
+        }
     }
 
     @Override
@@ -89,6 +101,47 @@ class ViewWindowAdapter extends WindowAdapter {
 
         SaveAlarms saveAlarms = new SaveAlarms();
     }
+
+    ActionListener updateCurrentTime = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+
+            // format current time
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+            Date cur_datetime = new Date(System.currentTimeMillis());
+            String dateFormatted = formatter.format(cur_datetime);
+
+            // set current time
+            view.btn_cur_time.setText(dateFormatted);
+
+            // next alarm
+            Alarm nextAlarm;
+
+
+
+            try {
+                nextAlarm = model.alarms.head();
+
+                System.out.println(cur_datetime.compareTo(nextAlarm.getRawAlarm()));
+
+                System.out.println(dateFormatted);
+                System.out.println(formatter.format(nextAlarm.getRawAlarm()));
+
+                if (cur_datetime.compareTo(nextAlarm.getRawAlarm()) == 1) {
+
+                    JOptionPane.showMessageDialog(view, "alarm");
+
+                    model.alarms.remove();
+
+                }
+            }
+            catch (QueueUnderflowException e) {
+
+            }
+
+
+        }
+    };
 }
 
 // ****** ADD ALARM LISTENERS

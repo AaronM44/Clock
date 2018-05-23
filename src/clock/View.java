@@ -13,7 +13,10 @@ public class View extends JFrame implements Observer{
     
     ClockPanel panel;
 
-    //JFrame frame = new JFrame();
+    JButton btn_cur_time = new JButton("Current Time");
+    JButton btn_view = new JButton("View Alarms");
+    JButton btn_next= new JButton("Next Alarm");
+    JButton btn_add = new JButton("Add Alarm");
     
     public View(Model model) {
 
@@ -27,21 +30,16 @@ public class View extends JFrame implements Observer{
         // Start of border layout code
 
         Container pane = getContentPane();
-        
-        JButton button = new JButton("Current Time");
-        pane.add(button, BorderLayout.PAGE_START);
          
         panel.setPreferredSize(new Dimension(300, 200));
         pane.add(panel, BorderLayout.CENTER);
-         
-        JButton btn_view = new JButton("View Alarms");
-        pane.add(btn_view, BorderLayout.LINE_START);
-         
-        button = new JButton("Next Alarm");
-        pane.add(button, BorderLayout.PAGE_END);
 
-        JButton btn_add = new JButton("Add Alarm");
+        pane.add(btn_cur_time, BorderLayout.PAGE_START);
+        pane.add(btn_view, BorderLayout.LINE_START);
+        pane.add(btn_next, BorderLayout.PAGE_END);
         pane.add(btn_add, BorderLayout.LINE_END);
+
+        btn_cur_time.setText(String.valueOf(model.hour));
 
         btn_add.setActionCommand("ADD");
         btn_view.setActionCommand("VIEW");
@@ -51,6 +49,7 @@ public class View extends JFrame implements Observer{
         // listeners
         btn_add.addActionListener(new ViewActionListener(this, model));
         btn_view.addActionListener(new ViewActionListener(this, model));
+
 
         addWindowListener(new ViewWindowAdapter(this, model));
 

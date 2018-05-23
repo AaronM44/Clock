@@ -1,9 +1,11 @@
 package clock;
 
+import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimerTask;
 
-public class Alarm {
+public class Alarm extends TimerTask {
 
     private String ical_alarm;
     private Date raw_alarm;
@@ -13,6 +15,12 @@ public class Alarm {
         this.raw_alarm = alarm;
 
         ical_alarm = convertToAlarm(raw_alarm);
+    }
+
+    @Override
+    public void run() {
+
+        JOptionPane.showMessageDialog(null, "alarm");
     }
 
     public String convertToAlarm (Date alarm) {
