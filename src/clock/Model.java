@@ -1,6 +1,7 @@
 package clock;
 
 import priorityqueue.SortedArrayPriorityQueue;
+import priorityqueue.SortedLinkedListPriorityQueue;
 
 import java.util.Calendar;
 import java.util.Observable;
@@ -16,7 +17,8 @@ public class Model extends Observable {
     int oldSecond = 0;
 
     SortedArrayPriorityQueue<Alarm> alarms = new SortedArrayPriorityQueue<>(5);
-    
+    //SortedLinkedListPriorityQueue<Alarm> alarms = new SortedLinkedListPriorityQueue<>();
+
     public Model() {
 
         update();

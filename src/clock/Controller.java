@@ -1,9 +1,6 @@
 package clock;
 
-import priorityqueue.PriorityItem;
-import priorityqueue.QueueOverflowException;
-import priorityqueue.QueueUnderflowException;
-import priorityqueue.SortedArrayPriorityQueue;
+import priorityqueue.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -123,6 +120,7 @@ class AddAlarmActionListener implements ActionListener {
 
         }
 
+        // confirmation notification
         JOptionPane.showMessageDialog(view, "Alarm saved");
 
     }
@@ -169,6 +167,9 @@ class ViewAlarmActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         EditAlarm editAlarm = new EditAlarm(view.model, alarm);
+        // close view alarms window
+        // doing this because the window activated event is not working as I thought it would
+        view.dispatchEvent(new WindowEvent(view, WindowEvent.WINDOW_CLOSING));
     }
 }
 
@@ -196,7 +197,7 @@ class ViewAlarmWindowAdapter extends WindowAdapter {
 
         int baseHeight = 20;
 
-        // create a button for each alarm in the queue
+        // create a button and listener for each alarm in the queue
         // buttons are slow to load, no idea why, guessing there's a better way to do this somehow
         for (int i = 0; i < numAlarms; i++) {
 
@@ -225,13 +226,112 @@ class EditAlarmActionListener implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent ae) {
 
-        if (e.getActionCommand() == "SAVE") {
+        if (ae.getActionCommand() == "SAVE") {
 
+            // error reporting
             System.out.println(String.valueOf(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(view.alarm.getRawAlarm())));
             System.out.println(String.valueOf(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(view.date_spinner.getValue())));
 
+            // create new Alarm object
+            Alarm alarm = new Alarm((Date) view.date_spinner.getValue());
+
+            long datetime = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmm").format(view.date_spinner.getValue()));
+
+            // probably the worst way to edit items in a queue...
+            // create an arraylist containing a copy of the queue. This is so that we can access items at specific
+            // indexes.
+            ArrayList<Object> copyAlarms = view.model.alarms.returnArrayList();
+
+            // create a new queue. The idea being that we will perform the edit in the arraylist then add
+            // all the items from the arraylist to this new queue and replace the old queue with the new
+            // updated one.
+            // it works for now.
+            SortedArrayPriorityQueue<Alarm> newQueue = new SortedArrayPriorityQueue<>(5);
+
+            int numAlarms = view.model.alarms.count();
+
+            // iterate through the items in the queue to look for the item that is being changed
+            for (int i = 0; i < numAlarms; i++) {
+
+                // annoying java casting as the items are stored in an arraylist of generic Objects
+                PriorityItem item = PriorityItem.class.cast(copyAlarms.get(i));
+                Alarm alarmOfItem = Alarm.class.cast(item.getItem());
+
+                // if we find the item we need to edit, replace it with the new alarm
+                if (view.alarm == alarmOfItem) {
+                    copyAlarms.set(i, new PriorityItem<Alarm>(alarm, datetime));
+                }
+
+                // add alarms to the new queue
+                try {
+                    newQueue.add(Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()), (PriorityItem.class.cast(copyAlarms.get(i)).getPriority()));
+
+                }
+                catch (QueueOverflowException error) {
+
+                }
+            }
+
+            // replace the old queue with the new modified one
+            view.model.alarms = newQueue;
+
+            // confirmation notification
+            JOptionPane.showMessageDialog(view, "Alarm saved");
+        }
+        else if (ae.getActionCommand() == "DELETE") {
+
+            // again with the dodgy queue editing. If I remember will make this a method in the queue or something
+            // create an arraylist containing a copy of the queue. This is so that we can access items at specific
+            // indexes.
+            ArrayList<Object> copyAlarms = view.model.alarms.returnArrayList();
+
+            // create a new queue. The idea being that we will perform the edit in the arraylist then add
+            // all the items from the arraylist to this new queue and replace the old queue with the new
+            // updated one.
+            SortedArrayPriorityQueue<Alarm> newQueue = new SortedArrayPriorityQueue<>(5);
+
+            int numAlarms = view.model.alarms.count();
+
+            // iterate through the items in the queue to look for the item that is being deleted
+            for (int i = 0; i < numAlarms; i++) {
+
+                // annoying java casting as the items are stored in an arraylist of generic Objects
+                PriorityItem item = PriorityItem.class.cast(copyAlarms.get(i));
+                Alarm alarmOfItem = Alarm.class.cast(item.getItem());
+
+                // if we find the item we need to edit, delete it
+                if (view.alarm == alarmOfItem) {
+                    copyAlarms.remove(i);
+                }
+            }
+
+            // iterate through the items in the arraylist and add them to the new queue
+            for (int i = 0; i < numAlarms - 1; i++) {
+
+                // annoying java casting as the items are stored in an arraylist of generic Objects
+                PriorityItem item = PriorityItem.class.cast(copyAlarms.get(i));
+                Alarm alarmOfItem = Alarm.class.cast(item.getItem());
+
+                // add alarms to the new queue
+                try {
+                    newQueue.add(Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()), (PriorityItem.class.cast(copyAlarms.get(i)).getPriority()));
+
+                }
+                catch (QueueOverflowException error) {
+
+                }
+            }
+
+            // replace the old queue with the new modified one
+            view.model.alarms = newQueue;
+
+            // confirmation notification
+            JOptionPane.showMessageDialog(view, "Alarm deleted");
+
+            // close edit alarm window
+            view.dispatchEvent(new WindowEvent(view, WindowEvent.WINDOW_CLOSING));
         }
     }
 }
