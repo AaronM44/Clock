@@ -8,12 +8,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimerTask;
 import javax.swing.*;
 
 public class Controller {
     
     ActionListener listener;
-    Timer timer;
+    javax.swing.Timer timer;
     
     Model model;
     View view;
@@ -24,8 +25,8 @@ public class Controller {
         
         listener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.update();
 
+                model.update();
             }
         };
         
@@ -51,10 +52,12 @@ class ViewActionListener implements ActionListener {
 
         if (actionEvent.getActionCommand() == "ADD") {
 
+            // open add alarm window
             AddAlarm addAlarm = new AddAlarm(model);
         }
         else if (actionEvent.getActionCommand() == "VIEW") {
 
+            // open view alarm window
             ViewAlarm viewAlarm = new ViewAlarm(model);
         }
     }
@@ -74,8 +77,9 @@ class ViewWindowAdapter extends WindowAdapter {
     @Override
     public void windowActivated(WindowEvent windowEvent) {
 
-        Timer t = new Timer(3000, updateCurrentTime);
-        t.start();
+        // timer for updating current time
+        Timer clockTimer = new Timer(999, updateCurrentTime);
+        clockTimer.start();
 
         // error reporting
         System.out.println("View model: " + model.toString());
@@ -83,7 +87,7 @@ class ViewWindowAdapter extends WindowAdapter {
 
         // update next alarm
         try {
-            view.btn_next.setText(String.valueOf(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(model.alarms.head().getRawAlarm())));
+            view.btn_next.setText("Next alarm: " + String.valueOf(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(model.alarms.head().getRawAlarm())));
         }
         catch (QueueUnderflowException e) {
 
@@ -93,12 +97,14 @@ class ViewWindowAdapter extends WindowAdapter {
     @Override
     public void windowOpened(WindowEvent windowEvent) {
 
+        // open the load alarms dialog on window first open
         LoadAlarms loadAlarms = new LoadAlarms();
     }
 
     @Override
     public void windowClosing(WindowEvent windowEvent) {
 
+        // prompt user to save alarms on window close
         SaveAlarms saveAlarms = new SaveAlarms();
     }
 
@@ -114,32 +120,17 @@ class ViewWindowAdapter extends WindowAdapter {
             // set current time
             view.btn_cur_time.setText(dateFormatted);
 
-            // next alarm
-            Alarm nextAlarm;
-
-
-
+            // remove timer task from schedule and remove head of queue if popup has been displayed
             try {
-                nextAlarm = model.alarms.head();
+                if (model.alarms.head().isActivated()) {
 
-                System.out.println(cur_datetime.compareTo(nextAlarm.getRawAlarm()));
-
-                System.out.println(dateFormatted);
-                System.out.println(formatter.format(nextAlarm.getRawAlarm()));
-
-                if (cur_datetime.compareTo(nextAlarm.getRawAlarm()) == 1) {
-
-                    JOptionPane.showMessageDialog(view, "alarm");
-
+                    model.alarms.head().cancel();
                     model.alarms.remove();
-
                 }
             }
             catch (QueueUnderflowException e) {
 
             }
-
-
         }
     };
 }
@@ -164,10 +155,11 @@ class AddAlarmActionListener implements ActionListener {
 
         long datetime = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmm").format(view.date_spinner.getValue()));
 
-        // add alarm to the queue
+        // add alarm to the queue and schedule it with the timer
         try {
 
             model.alarms.add(alarm, datetime);
+            model.alarmTimer.schedule(alarm, alarm.getRawAlarm());
         }
         catch (QueueOverflowException error) {
 
@@ -194,6 +186,7 @@ class AddAlarmWindowAdapter extends WindowAdapter {
     @Override
     public void windowActivated(WindowEvent we) {
 
+        // for error checking
         System.out.println("Add Alarm model: " + model.toString());
         System.out.println("Add Alarm alarms: " + model.alarms.toString());
     }
@@ -243,6 +236,7 @@ class ViewAlarmWindowAdapter extends WindowAdapter {
         System.out.println("View Alarm model: " + view.model.toString());
         System.out.println("View Alarm alarms: " + view.model.alarms.toString());
 
+        // create an array list of the alarms queue so that I can access specific elements
         ArrayList<Object> copyAlarms = view.model.alarms.returnArrayList();
 
         // get number of alarms in the queue
@@ -268,7 +262,7 @@ class ViewAlarmWindowAdapter extends WindowAdapter {
     }
 }
 
-// handle the events for the Edit Alarm window
+// ****** EDIT ALARM LISTENERS
 class EditAlarmActionListener implements ActionListener {
 
     EditAlarm view;
@@ -281,6 +275,7 @@ class EditAlarmActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
 
+        // save alarm
         if (ae.getActionCommand() == "SAVE") {
 
             // error reporting
@@ -333,6 +328,8 @@ class EditAlarmActionListener implements ActionListener {
             // confirmation notification
             JOptionPane.showMessageDialog(view, "Alarm saved");
         }
+
+        // delete alarm
         else if (ae.getActionCommand() == "DELETE") {
 
             // again with the dodgy queue editing. If I remember will make this a method in the queue or something
@@ -404,9 +401,11 @@ class EditAlarmWindowAdapter extends WindowAdapter {
     @Override
     public void windowOpened(WindowEvent we) {
 
+        // for error checking
         System.out.println("Edit Alarm model: " + view.model.toString());
         System.out.println("Edit Alarm alarms: " + view.model.alarms.toString());
 
+        // set spinner value
         view.date_spinner.setValue(alarm.getRawAlarm());
 
     }

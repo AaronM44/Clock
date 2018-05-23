@@ -109,6 +109,7 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
 
     public int count() { return tailIndex + 1 ; }
 
+    // return arraylist of queue
     public ArrayList<Object> returnArrayList() {
 
         ArrayList<Object> arrayList = new ArrayList<>(Arrays.asList(storage));

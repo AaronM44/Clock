@@ -1,12 +1,9 @@
 package clock;
 
 import priorityqueue.SortedArrayPriorityQueue;
-import priorityqueue.SortedLinkedListPriorityQueue;
 
 import java.util.Calendar;
 import java.util.Observable;
-import java.util.GregorianCalendar;
-import java.util.PriorityQueue;
 
 public class Model extends Observable {
     
@@ -18,9 +15,13 @@ public class Model extends Observable {
 
     SortedArrayPriorityQueue<Alarm> alarms = new SortedArrayPriorityQueue<>(5);
 
+    // java util timer  for scheduling alarms
+    java.util.Timer alarmTimer;
+
     public Model() {
 
         update();
+        alarmTimer = new java.util.Timer();
     }
     
     public void update() {

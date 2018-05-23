@@ -9,18 +9,20 @@ public class Alarm extends TimerTask {
 
     private String ical_alarm;
     private Date raw_alarm;
+    private boolean activated;
 
     public Alarm(Date alarm) {
 
-        this.raw_alarm = alarm;
-
+        raw_alarm = alarm;
+        activated = false;
         ical_alarm = convertToAlarm(raw_alarm);
     }
 
     @Override
     public void run() {
 
-        JOptionPane.showMessageDialog(null, "alarm");
+        JOptionPane.showMessageDialog(null, String.valueOf( new SimpleDateFormat("HH:mm dd/MM/yyyy").format(raw_alarm)));
+        activated = true;
     }
 
     public String convertToAlarm (Date alarm) {
@@ -35,4 +37,6 @@ public class Alarm extends TimerTask {
     public String getIcal_alarm(){ return ical_alarm; }
 
     public Date getRawAlarm(){ return raw_alarm; }
+
+    public boolean isActivated() { return activated; }
 }
