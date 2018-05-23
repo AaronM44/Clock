@@ -25,7 +25,7 @@ public class View extends JFrame implements Observer{
 
         //frame.setContentPane(panel);
         setTitle("Java Clock");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         // Start of border layout code
 

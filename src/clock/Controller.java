@@ -4,6 +4,10 @@ import priorityqueue.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -105,7 +109,7 @@ class ViewWindowAdapter extends WindowAdapter {
     public void windowClosing(WindowEvent windowEvent) {
 
         // prompt user to save alarms on window close
-        SaveAlarms saveAlarms = new SaveAlarms();
+        SaveAlarms saveAlarms = new SaveAlarms(model);
     }
 
     ActionListener updateCurrentTime = new ActionListener() {
@@ -300,6 +304,11 @@ class EditAlarmActionListener implements ActionListener {
 
             int numAlarms = view.model.alarms.count();
 
+            // cancel timer to remove all scheduled events then remake it
+
+            view.model.alarmTimer.cancel();
+            view.model.alarmTimer = new java.util.Timer();
+
             // iterate through the items in the queue to look for the item that is being changed
             for (int i = 0; i < numAlarms; i++) {
 
@@ -312,10 +321,10 @@ class EditAlarmActionListener implements ActionListener {
                     copyAlarms.set(i, new PriorityItem<Alarm>(alarm, datetime));
                 }
 
-                // add alarms to the new queue
+                // add alarms to the new queue and timer
                 try {
                     newQueue.add(Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()), (PriorityItem.class.cast(copyAlarms.get(i)).getPriority()));
-
+                    view.model.alarmTimer.schedule(Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()), Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()).getRawAlarm());
                 }
                 catch (QueueOverflowException error) {
 
@@ -344,6 +353,10 @@ class EditAlarmActionListener implements ActionListener {
 
             int numAlarms = view.model.alarms.count();
 
+            // cancel timer and remake
+            view.model.alarmTimer.cancel();
+            view.model.alarmTimer = new java.util.Timer();
+
             // iterate through the items in the queue to look for the item that is being deleted
             for (int i = 0; i < numAlarms; i++) {
 
@@ -367,7 +380,7 @@ class EditAlarmActionListener implements ActionListener {
                 // add alarms to the new queue
                 try {
                     newQueue.add(Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()), (PriorityItem.class.cast(copyAlarms.get(i)).getPriority()));
-
+                    view.model.alarmTimer.schedule(Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()), Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()).getRawAlarm());
                 }
                 catch (QueueOverflowException error) {
 
@@ -410,5 +423,85 @@ class EditAlarmWindowAdapter extends WindowAdapter {
 
     }
 
+}
+
+// ****** SAVE ALARMS LISTENERS
+// action listeners
+
+class SaveAlarmsActionListener implements ActionListener {
+
+    SaveAlarms view;
+    Model model;
+
+    public SaveAlarmsActionListener(SaveAlarms view, Model model) {
+
+        this.view = view;
+        this.model = model;
+    }
+
+    public SaveAlarmsActionListener(SaveAlarms view) {
+
+        this.view = view;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+
+        String filepath = view.txt_file.getText();
+
+        if (ae.getActionCommand() == "YES") {
+
+            try {
+
+                // create new writer object
+                PrintWriter writer = new PrintWriter(filepath, "UTF-8");
+
+                // create copy of queue as arraylist
+                ArrayList<Object> copyAlarms = model.alarms.returnArrayList();
+
+                int numAlarms = model.alarms.count();
+
+                for (int i = 0; i < numAlarms; i++) {
+
+                    PriorityItem item = PriorityItem.class.cast(copyAlarms.get(i));
+                    Alarm alarmOfItem = Alarm.class.cast(item.getItem());
+
+                    writer.println("BEGIN:VCALENDAR");
+                    writer.println("VERSION:2.0");
+                    writer.println("PRODID:-//hacksw/handcal//NONSGML v1.0//EN");
+                    writer.println("BEGIN:VEVENT");
+                    writer.println("UID:@uid1@example.com");
+                    writer.println("DTSTAMP:" + alarmOfItem.getIcal_alarm());
+                    writer.println("DTSTART:" + alarmOfItem.getIcal_alarm());
+                    writer.println("DTEND:" + alarmOfItem.getIcal_alarm());
+                    writer.println("END:VEVENT");
+                    writer.println("END:VCALENDAR");
+                }
+
+                writer.close();
+            }
+            catch (FileNotFoundException | UnsupportedEncodingException e) {
+
+            }
+
+            System.exit(0);
+        }
+        else if (ae.getActionCommand() == "NO") {
+
+            System.exit(0);
+        }
+        else if (ae.getActionCommand() == "FILE") {
+
+            // set text field to selected file
+            view.fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            int result = view.fileChooser.showOpenDialog(view);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+
+                File selectedFile = view.fileChooser.getSelectedFile();
+                view.txt_file.setText(String.valueOf(selectedFile));
+            }
+        }
+    }
 }
 
