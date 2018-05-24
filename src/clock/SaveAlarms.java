@@ -47,13 +47,6 @@ public class SaveAlarms extends JFrame{
         btn_no.setBounds(235, 130, 100, 50);
         pane.add(btn_no);
 
-//        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-//        int result = fileChooser.showOpenDialog(this);
-//        if (result == JFileChooser.APPROVE_OPTION) {
-//            File selectedFile = fileChooser.getSelectedFile();
-//            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-//        }
-
         // set action commands
         btn_yes.setActionCommand("YES");
         btn_no.setActionCommand("NO");

@@ -23,7 +23,6 @@ public class View extends JFrame implements Observer{
         // main window
         panel = new ClockPanel(model);
 
-        //frame.setContentPane(panel);
         setTitle("Java Clock");
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
@@ -39,7 +38,7 @@ public class View extends JFrame implements Observer{
         pane.add(btn_next, BorderLayout.PAGE_END);
         pane.add(btn_add, BorderLayout.LINE_END);
 
-        btn_cur_time.setText(String.valueOf(model.hour));
+        btn_cur_time.setText("");
 
         btn_add.setActionCommand("ADD");
         btn_view.setActionCommand("VIEW");
@@ -49,7 +48,6 @@ public class View extends JFrame implements Observer{
         // listeners
         btn_add.addActionListener(new ViewActionListener(this, model));
         btn_view.addActionListener(new ViewActionListener(this, model));
-
 
         addWindowListener(new ViewWindowAdapter(this, model));
 

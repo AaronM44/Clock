@@ -155,9 +155,6 @@ class AddAlarmActionListener implements ActionListener {
 
         model.addAlarm((Date) view.date_spinner.getValue());
 
-        // confirmation notification
-        JOptionPane.showMessageDialog(view, "Alarm saved");
-
     }
 }
 
@@ -248,7 +245,14 @@ class ViewAlarmWindowAdapter extends WindowAdapter {
             button.addActionListener(new ViewAlarmActionListener(view, alarm.getItem()));
 
             baseHeight += 50;
+
+            System.out.println("button created");
+
+            button.setVisible(true);
         }
+
+        // stops buttons lagging
+        view.repaint();
     }
 }
 
@@ -290,11 +294,6 @@ class EditAlarmActionListener implements ActionListener {
 
             int numAlarms = view.model.alarms.count();
 
-            // cancel timer to remove all scheduled events then remake it
-
-            view.model.alarmTimer.cancel();
-            view.model.alarmTimer = new java.util.Timer();
-
             // iterate through the items in the queue to look for the item that is being changed
             for (int i = 0; i < numAlarms; i++) {
 
@@ -305,12 +304,13 @@ class EditAlarmActionListener implements ActionListener {
                 // if we find the item we need to edit, replace it with the new alarm
                 if (view.alarm == alarmOfItem) {
                     copyAlarms.set(i, new PriorityItem<Alarm>(alarm, datetime));
+                    alarmOfItem.cancel();
+                    view.model.alarmTimer.schedule(alarm, alarm.getRawAlarm());
                 }
 
                 // add alarms to the new queue and timer
                 try {
                     newQueue.add(Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()), (PriorityItem.class.cast(copyAlarms.get(i)).getPriority()));
-                    view.model.alarmTimer.schedule(Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()), Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()).getRawAlarm());
                 }
                 catch (QueueOverflowException error) {
 
@@ -332,6 +332,8 @@ class EditAlarmActionListener implements ActionListener {
             // indexes.
             ArrayList<Object> copyAlarms = view.model.alarms.returnArrayList();
 
+            System.out.println("copyAlarms: " + copyAlarms);
+
             // create a new queue. The idea being that we will perform the edit in the arraylist then add
             // all the items from the arraylist to this new queue and replace the old queue with the new
             // updated one.
@@ -339,9 +341,8 @@ class EditAlarmActionListener implements ActionListener {
 
             int numAlarms = view.model.alarms.count();
 
-            // cancel timer and remake
-            view.model.alarmTimer.cancel();
-            view.model.alarmTimer = new java.util.Timer();
+            System.out.println("count: " + numAlarms);
+
 
             // iterate through the items in the queue to look for the item that is being deleted
             for (int i = 0; i < numAlarms; i++) {
@@ -352,12 +353,18 @@ class EditAlarmActionListener implements ActionListener {
 
                 // if we find the item we need to edit, delete it
                 if (view.alarm == alarmOfItem) {
+
+                    alarmOfItem.cancel();
                     copyAlarms.remove(i);
+                    numAlarms -= 1;
                 }
             }
 
+            System.out.println("num alarms: " + numAlarms);
+            System.out.println(copyAlarms);
+
             // iterate through the items in the arraylist and add them to the new queue
-            for (int i = 0; i < numAlarms - 1; i++) {
+            for (int i = 0; i < numAlarms; i++) {
 
                 // annoying java casting as the items are stored in an arraylist of generic Objects
                 PriorityItem item = PriorityItem.class.cast(copyAlarms.get(i));
@@ -365,8 +372,9 @@ class EditAlarmActionListener implements ActionListener {
 
                 // add alarms to the new queue
                 try {
-                    newQueue.add(Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()), (PriorityItem.class.cast(copyAlarms.get(i)).getPriority()));
-                    view.model.alarmTimer.schedule(Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()), Alarm.class.cast(PriorityItem.class.cast(copyAlarms.get(i)).getItem()).getRawAlarm());
+                    newQueue.add(Alarm.class.cast(alarmOfItem), item.getPriority());
+
+                    System.out.println(newQueue);
                 }
                 catch (QueueOverflowException error) {
 
@@ -584,7 +592,7 @@ class LoadAlarmsActionListener implements ActionListener {
         // no button
         else if (ae.getActionCommand() == "NO") {
 
-            System.exit(0);
+            view.dispatchEvent(new WindowEvent(view, WindowEvent.WINDOW_CLOSING));
         }
 
         // file choose functionality
