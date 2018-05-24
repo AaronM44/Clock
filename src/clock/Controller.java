@@ -153,20 +153,7 @@ class AddAlarmActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // create new Alarm object
-        Alarm alarm = new Alarm((Date) view.date_spinner.getValue());
-
-        long datetime = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmm").format(view.date_spinner.getValue()));
-
-        // add alarm to the queue and schedule it with the timer
-        try {
-
-            model.alarms.add(alarm, datetime);
-            model.alarmTimer.schedule(alarm, alarm.getRawAlarm());
-        }
-        catch (QueueOverflowException error) {
-
-        }
+        model.addAlarm((Date) view.date_spinner.getValue());
 
         // confirmation notification
         JOptionPane.showMessageDialog(view, "Alarm saved");
@@ -582,25 +569,9 @@ class LoadAlarmsActionListener implements ActionListener {
                 DateFormat format = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 
                 try {
-                    // create new Alarm object
-                    Alarm alarm = new Alarm(format.parse(datetimeString));
 
-                    // add alarms to the queue only if they have not passed
-                    if (!format.parse(datetimeString).before(new Date())) {
-
-                        // convert date to long for priority
-                        long priority = Long.parseLong(year + month + day + hour + minutes);
-
-                        // add alarm to the queue and schedule it with the timer
-                        try {
-
-                            model.alarms.add(alarm, priority);
-                            model.alarmTimer.schedule(alarm, alarm.getRawAlarm());
-                        }
-                        catch (QueueOverflowException error) {
-
-                        }
-                    }
+                    Date alarm = format.parse(datetimeString);
+                    model.addAlarm(alarm);
                 }
                 catch (ParseException e) {
 
