@@ -3,17 +3,16 @@ package clock;
 import priorityqueue.*;
 
 import java.awt.*;
+import java.awt.List;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.nio.file.NoSuchFileException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimerTask;
+import java.util.*;
 import javax.swing.*;
+import javax.swing.Timer;
 
 public class Controller {
     
@@ -102,7 +101,7 @@ class ViewWindowAdapter extends WindowAdapter {
     public void windowOpened(WindowEvent windowEvent) {
 
         // open the load alarms dialog on window first open
-        LoadAlarms loadAlarms = new LoadAlarms();
+        LoadAlarms loadAlarms = new LoadAlarms(model);
     }
 
     @Override
@@ -449,6 +448,7 @@ class SaveAlarmsActionListener implements ActionListener {
 
         String filepath = view.txt_file.getText();
 
+        // yes button
         if (ae.getActionCommand() == "YES") {
 
             try {
@@ -486,10 +486,137 @@ class SaveAlarmsActionListener implements ActionListener {
 
             System.exit(0);
         }
+
+        // no button
         else if (ae.getActionCommand() == "NO") {
 
             System.exit(0);
         }
+
+        // file choose functionality
+        else if (ae.getActionCommand() == "FILE") {
+
+            // set text field to selected file
+            view.fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            int result = view.fileChooser.showOpenDialog(view);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+
+                File selectedFile = view.fileChooser.getSelectedFile();
+                view.txt_file.setText(String.valueOf(selectedFile));
+            }
+        }
+    }
+}
+
+// ****** LOAD ALARMS LISTENERS
+// action listeners
+class LoadAlarmsActionListener implements ActionListener {
+
+    LoadAlarms view;
+    Model model;
+
+    public LoadAlarmsActionListener(LoadAlarms view, Model model) {
+
+        this.view = view;
+        this.model = model;
+    }
+
+    public LoadAlarmsActionListener(LoadAlarms view) {
+
+        this.view = view;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+
+        String filepath = view.txt_file.getText();
+        ArrayList<String> icalAlarms = new ArrayList<>();
+
+        // read file and separate out the alarms in their ical DTSTART format
+        if (ae.getActionCommand() == "YES") {
+
+            try {
+                // read file
+                BufferedReader file = new BufferedReader(new FileReader(filepath));
+                String line;
+                String[] lineSplit;
+
+                // loop through file and split each line into an array
+                while ((line = file.readLine()) != null) {
+
+                    lineSplit = line.split(":");
+                    java.util.List<String> lineArray = new ArrayList<String>(Arrays.asList(lineSplit));
+
+                    // if the line starts with DTSTART put the datetime string into an array
+                    if (lineArray.get(0).equals("DTSTART")) {
+
+                        icalAlarms.add(lineArray.get(1));
+                    }
+                }
+
+                // error checking
+                System.out.println(icalAlarms);
+
+                file.close();
+            }
+            catch (IOException e) {
+
+            }
+
+            // loop through alarms and add them to the queue
+            for (String icalAlarm : icalAlarms) {
+
+                //split string into characters and other formatting
+                String[] icalChars;
+                icalChars = icalAlarm.split("");
+                ArrayList<String> icalSplit = new ArrayList<String>(Arrays.asList(icalChars));
+
+                String year = icalSplit.get(0) + icalSplit.get(1) + icalSplit.get(2) + icalSplit.get(3);
+                String month = icalSplit.get(4) + icalSplit.get(5);
+                String day = icalSplit.get(6) + icalSplit.get(7);
+                String hour = icalSplit.get(9) + icalSplit.get(10);
+                String minutes = icalSplit.get(11) + icalSplit.get(12);
+
+                String datetimeString = (hour + ":" + minutes + " " + day + "/" + month + "/" + year);
+                DateFormat format = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+
+                try {
+                    // create new Alarm object
+                    Alarm alarm = new Alarm(format.parse(datetimeString));
+
+                    // add alarms to the queue only if they have not passed
+                    if (!format.parse(datetimeString).before(new Date())) {
+
+                        // convert date to long for priority
+                        long priority = Long.parseLong(year + month + day + hour + minutes);
+
+                        // add alarm to the queue and schedule it with the timer
+                        try {
+
+                            model.alarms.add(alarm, priority);
+                            model.alarmTimer.schedule(alarm, alarm.getRawAlarm());
+                        }
+                        catch (QueueOverflowException error) {
+
+                        }
+                    }
+                }
+                catch (ParseException e) {
+
+                }
+            }
+
+            view.dispatchEvent(new WindowEvent(view, WindowEvent.WINDOW_CLOSING));
+        }
+
+        // no button
+        else if (ae.getActionCommand() == "NO") {
+
+            System.exit(0);
+        }
+
+        // file choose functionality
         else if (ae.getActionCommand() == "FILE") {
 
             // set text field to selected file
