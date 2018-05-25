@@ -11,6 +11,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Observable;
 
+/**
+ * Class that holds all the data for the program
+ */
 public class Model extends Observable {
     
     int hour = 0;

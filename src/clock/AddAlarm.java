@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Observer;
 import javax.swing.*;
 
+/**
+ * Window that alows a user to add a new alarm to the the queue
+ */
 public class AddAlarm  extends JFrame{
 
     Model model;

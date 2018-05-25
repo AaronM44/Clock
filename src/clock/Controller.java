@@ -14,6 +14,9 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
 
+/**
+ * Provides the functionality for the clock so that this can be separated from the View and Model
+ */
 public class Controller {
     
     ActionListener listener;
@@ -39,6 +42,7 @@ public class Controller {
 }
 
 // ****** VIEW LISTENERS
+// action listeners
 class ViewActionListener implements ActionListener {
 
     View view;
@@ -66,6 +70,7 @@ class ViewActionListener implements ActionListener {
     }
 }
 
+// window listeners
 class ViewWindowAdapter extends WindowAdapter {
 
     View view;
@@ -139,6 +144,7 @@ class ViewWindowAdapter extends WindowAdapter {
 }
 
 // ****** ADD ALARM LISTENERS
+// action listeners
 class AddAlarmActionListener implements ActionListener {
 
     AddAlarm view;
@@ -180,6 +186,7 @@ class AddAlarmWindowAdapter extends WindowAdapter {
 }
 
 // ****** VIEW ALARMS LISTENERS
+// action listeners
 class ViewAlarmActionListener implements ActionListener {
 
     ViewAlarm view;
@@ -229,6 +236,7 @@ class ViewAlarmWindowAdapter extends WindowAdapter {
         // get number of alarms in the queue
         int numAlarms = view.model.alarms.count();
 
+        // y coordinate for the first button
         int baseHeight = 20;
 
         // create a button and listener for each alarm in the queue
@@ -244,6 +252,7 @@ class ViewAlarmWindowAdapter extends WindowAdapter {
 
             button.addActionListener(new ViewAlarmActionListener(view, alarm.getItem()));
 
+            // update position for the next button
             baseHeight += 50;
 
             System.out.println("button created");
@@ -257,6 +266,7 @@ class ViewAlarmWindowAdapter extends WindowAdapter {
 }
 
 // ****** EDIT ALARM LISTENERS
+// action listeners
 class EditAlarmActionListener implements ActionListener {
 
     EditAlarm view;
@@ -366,7 +376,6 @@ class EditAlarmActionListener implements ActionListener {
             // iterate through the items in the arraylist and add them to the new queue
             for (int i = 0; i < numAlarms; i++) {
 
-                // annoying java casting as the items are stored in an arraylist of generic Objects
                 PriorityItem item = PriorityItem.class.cast(copyAlarms.get(i));
                 Alarm alarmOfItem = Alarm.class.cast(item.getItem());
 
@@ -421,7 +430,6 @@ class EditAlarmWindowAdapter extends WindowAdapter {
 
 // ****** SAVE ALARMS LISTENERS
 // action listeners
-
 class SaveAlarmsActionListener implements ActionListener {
 
     SaveAlarms view;
@@ -456,6 +464,7 @@ class SaveAlarmsActionListener implements ActionListener {
 
                 int numAlarms = model.alarms.count();
 
+                // loop over the queue and write alarms to file in iCal format
                 for (int i = 0; i < numAlarms; i++) {
 
                     PriorityItem item = PriorityItem.class.cast(copyAlarms.get(i));

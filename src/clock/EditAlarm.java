@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Observer;
 import javax.swing.*;
 
+/**
+ * Window that provides the functionality to either edit an alarm or delete it entirely
+ */
 public class EditAlarm  extends JFrame{
 
     Model model;

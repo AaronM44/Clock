@@ -1,9 +1,13 @@
 package clock;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 
+/**
+ * Window that provides the option to load alarms from an iCal file
+ */
 public class LoadAlarms extends JFrame{
 
     JLabel lbl_load = new JLabel("Load alarms from file?");
@@ -37,6 +41,10 @@ public class LoadAlarms extends JFrame{
         btn_openFile.setBounds(325, 70, 50, 50);
         pane.add(btn_openFile);
 
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(null,"ics");
+        fileChooser.setFileFilter(filter);
         pane.add(fileChooser);
 
         btn_yes.setFont(new Font("Serif", Font.BOLD, 24));

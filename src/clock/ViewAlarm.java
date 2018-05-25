@@ -8,6 +8,9 @@ import java.awt.event.WindowEvent;
 import java.util.Observer;
 import javax.swing.*;
 
+/**
+ * Window that allows the user to view the alarms in the queue and select them for editing
+ */
 public class ViewAlarm  extends JFrame{
 
     Model model;

@@ -9,6 +9,10 @@ import java.awt.event.WindowEvent;
 import java.util.Observer;
 import java.util.Observable;
 
+/**
+ * Main window of the class. Contains a clock which updates each seconds and buttons
+ * to either add a new alarm to a queue or view those already created.
+ */
 public class View extends JFrame implements Observer{
     
     ClockPanel panel;
